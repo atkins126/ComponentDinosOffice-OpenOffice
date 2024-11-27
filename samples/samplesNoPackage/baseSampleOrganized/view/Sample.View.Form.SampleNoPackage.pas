@@ -123,6 +123,7 @@ type
     CheckBox1: TCheckBox;
     edtWidth: TLabeledEdit;
     Label7: TLabel;
+    Button6: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -158,6 +159,7 @@ type
     procedure Button11Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
   private
     FFontTop, FFontLeft: integer;
     FSettingsChart: TSettingsChart;
@@ -452,6 +454,11 @@ begin
   FOfficeCalc.URlFile := edtArq.Text;
   FOfficeCalc.SheetName := edtAba.Text;
   FOfficeCalc.startSheet;
+end;
+
+procedure TFormSampleNoPackage.Button6Click(Sender: TObject);
+begin
+   FOfficeCalc.positionSheetByIndex(StrToIntDef(edtAba.Text,0));
 end;
 
 procedure TFormSampleNoPackage.btAddCellValueClick(Sender: TObject);

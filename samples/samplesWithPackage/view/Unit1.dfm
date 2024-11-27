@@ -21,8 +21,6 @@ object Form1: TForm1
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 661
-    ExplicitHeight = 598
     object TabSheet1: TTabSheet
       Caption = 'Calc'
       OnShow = TabSheet1Show
@@ -187,18 +185,18 @@ object Form1: TForm1
       object Button8: TButton
         Left = 413
         Top = 166
-        Width = 65
+        Width = 57
         Height = 25
         Caption = 'Adicionar'
         TabOrder = 10
         OnClick = Button8Click
       end
       object Button9: TButton
-        Left = 484
+        Left = 472
         Top = 166
-        Width = 49
+        Width = 76
         Height = 25
-        Caption = 'Trocar'
+        Caption = 'Trocar - Nome'
         TabOrder = 11
         OnClick = Button9Click
       end
@@ -594,6 +592,15 @@ object Form1: TForm1
         ImeName = 'Portuguese (Brazilian ABNT)'
         TabOrder = 39
         Text = '5000'
+      end
+      object Button13: TButton
+        Left = 551
+        Top = 166
+        Width = 73
+        Height = 25
+        Caption = 'Trocar - Index'
+        TabOrder = 40
+        OnClick = Button13Click
       end
     end
     object TabSheet2: TTabSheet
