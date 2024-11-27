@@ -64,8 +64,9 @@ type
     destructor Destroy; override;
     constructor Create(AOwner: TComponent); override;
     procedure startSheet;
-    procedure positionSheetByName(const aSheetName: string);
     procedure addNewSheet(const aSheetName: string; aPosition: integer);
+    function positionSheetByIndex(const aSheetIndex: integer): TOpenOffice_calc;
+    function positionSheetByName(const aSheetName: string):TOpenOffice_calc;
     function setFormula(aCellNumber: integer; const aCollName: string; const aFormula: string): TOpenOffice_calc;
     function SetValue(aCellNumber: integer; const aCollName: string; aValue: variant; TypeValue: TTypeValue = ftString; Wrapped: boolean = false): TOpenOffice_calc;
     function GetValue(aCellNumber: integer; const aCollName: String) : TOpenOffice_calc;
@@ -241,9 +242,16 @@ begin
     onAfterGetValue(self);
 end;
 
-procedure TOpenOffice_calc.positionSheetByName(const aSheetName: string);
+function TOpenOffice_calc.positionSheetByName(const aSheetName: string):TOpenOffice_calc;
 begin
   objSCalc := objDocument.Sheets.getByName(aSheetName);
+  Result := self;
+end;
+
+function TOpenOffice_calc.positionSheetByIndex(const aSheetIndex: integer) :TOpenOffice_calc;
+begin
+  objSCalc := objDocument.Sheets.getByIndex(aSheetIndex);
+  Result := self;
 end;
 
 procedure TOpenOffice_calc.addNewSheet(const aSheetName: string; aPosition: integer);

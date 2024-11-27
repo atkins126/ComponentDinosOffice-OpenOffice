@@ -10,10 +10,8 @@ object FormSampleNoPackage: TFormSampleNoPackage
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = True
   Position = poScreenCenter
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object PageControl2: TPageControl
     Left = 0
@@ -194,18 +192,18 @@ object FormSampleNoPackage: TFormSampleNoPackage
       object Button8: TButton
         Left = 413
         Top = 166
-        Width = 65
+        Width = 57
         Height = 25
         Caption = 'Adicionar'
         TabOrder = 10
         OnClick = Button8Click
       end
       object Button9: TButton
-        Left = 484
+        Left = 476
         Top = 166
-        Width = 49
+        Width = 64
         Height = 25
-        Caption = 'Trocar'
+        Caption = 'Trocar Nome'
         TabOrder = 11
         OnClick = Button9Click
       end
@@ -296,6 +294,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Aba da planilha'
         TabOrder = 19
+        Text = ''
       end
       object edtArq: TLabeledEdit
         Left = 3
@@ -306,6 +305,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Carregar documento'
         TabOrder = 20
+        Text = ''
       end
       object edtCAte: TLabeledEdit
         Left = 70
@@ -316,6 +316,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Coluna Ate'
         TabOrder = 21
+        Text = ''
       end
       object edtCde: TLabeledEdit
         Left = 6
@@ -326,6 +327,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Coluna de'
         TabOrder = 22
+        Text = ''
       end
       object edtColuna: TLabeledEdit
         Left = 6
@@ -337,6 +339,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Coluna'
         TabOrder = 23
+        Text = ''
       end
       object edtLAte: TLabeledEdit
         Left = 186
@@ -348,6 +351,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Caption = 'linha ate'
         NumbersOnly = True
         TabOrder = 24
+        Text = ''
       end
       object edtLde: TLabeledEdit
         Left = 134
@@ -359,6 +363,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Caption = 'Linha de'
         NumbersOnly = True
         TabOrder = 25
+        Text = ''
       end
       object edtLinha: TLabeledEdit
         Left = 46
@@ -370,6 +375,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Caption = 'Linha'
         NumbersOnly = True
         TabOrder = 26
+        Text = ''
       end
       object edtNomeGrafico: TLabeledEdit
         Left = 236
@@ -380,6 +386,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Nome Grafico'
         TabOrder = 27
+        Text = ''
       end
       object edtPos: TLabeledEdit
         Left = 413
@@ -390,6 +397,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Posi'#231#227'o'
         TabOrder = 28
+        Text = ''
       end
       object edtSalvar: TLabeledEdit
         Left = 3
@@ -411,6 +419,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Valor'
         TabOrder = 30
+        Text = ''
       end
       object Graficos: TGroupBox
         Left = 405
@@ -575,6 +584,15 @@ object FormSampleNoPackage: TFormSampleNoPackage
         State = cbChecked
         TabOrder = 38
         OnClick = CheckBox1Click
+      end
+      object Button6: TButton
+        Left = 546
+        Top = 166
+        Width = 77
+        Height = 25
+        Caption = 'Trocar Index'
+        TabOrder = 39
+        OnClick = Button6Click
       end
     end
     object TabSheet2: TTabSheet
@@ -742,6 +760,7 @@ object FormSampleNoPackage: TFormSampleNoPackage
         EditLabel.Height = 13
         EditLabel.Caption = 'Carregar documento'
         TabOrder = 13
+        Text = ''
       end
     end
   end
