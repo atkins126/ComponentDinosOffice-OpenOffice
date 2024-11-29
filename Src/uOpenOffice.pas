@@ -138,8 +138,26 @@ begin
 end;
 
 constructor TOpenOffice.Create(AOwner: TComponent);
+procedure InitializeCOM;
+begin
+  try
+    if TThread.CurrentThread.ThreadID = MainThreadID then
+    begin
+      OleCheck(CoInitialize(nil));
+    end
+    else
+    begin
+      // Para APIs multithread, Unigui, Intraweb, inicialize com COINIT_MULTITHREADED
+      OleCheck(CoInitializeEx(nil, COINIT_MULTITHREADED));
+    end;
+  except
+    on E: Exception do
+      raise Exception.Create('Erro ao inicializar COM: ' + E.Message);
+  end;
+end;
 begin
   inherited;
+  InitializeCOM;
   FOpenOfficeHungThread := TOpenOfficeHungThread.Create;
   inicialization;
   FSetPrinter := TSetPrinter.Create(nil);

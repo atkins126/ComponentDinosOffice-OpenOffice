@@ -82,12 +82,13 @@ type
     function SetUnderline(aUnderline: boolean): TOpenOffice_calc;
     function CountRow: Integer;
     function CountCell: Integer;
+    function SheetToBase64(aPathFile:string):string;
   end;
 
 implementation
 
 uses
-  System.Win.ComObj;
+  System.Win.ComObj, System.Classes, Soap.EncdDecd;
 
 procedure THelperOpenOffice_calc.addChart(aSettingsChart: TSettingsChart);
 var
@@ -392,6 +393,19 @@ function THelperOpenOffice_calc.SetUnderline(aUnderline: boolean): TOpenOffice_c
 begin
   Cell.CharUnderline := ifthen(aUnderline, 1, 0);
   result := self;
+end;
+
+function THelperOpenOffice_calc.SheetToBase64(aPathFile:string): string;
+var
+  stream: TMemoryStream;
+begin
+  stream := TMemoryStream.Create;
+  try
+    stream.LoadFromFile(aPathFile);
+    Result := EncodeBase64(stream.Memory, stream.Size);
+  finally
+    stream.Free;
+  end;
 end;
 
 { THelperOpenOffice_calc }
