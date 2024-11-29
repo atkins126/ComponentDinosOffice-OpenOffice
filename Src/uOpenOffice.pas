@@ -273,13 +273,25 @@ begin
 end;
 
 procedure TOpenOffice.saveFile(aFileName: String);
+var
+  SaveProperty : array [0..1] of variant;
 begin
   aFileName := convertFilePathToUrlFile(aFileName);
 
-  if aFileName.Trim.IsEmpty then
-    aFileName := URlFile;
+  if aFileName.Contains('.xlsx') then
+  begin
+    //Codigo fornecido por @adolfomayer - e adptado por @dinosdev 29/11/2024
+    SaveProperty[0] := ObjServiceManager.Bridge_GetStruct('com.sun.star.beans.PropertyValue');
+    SaveProperty[0].Name := 'FilterName';
+    SaveProperty[0].Value := 'Calc MS Excel 2007 XML'; //for XLSX
 
-  objDocument.storeAsURL(aFileName, VarArrayOf([]));
+    SaveProperty[1] := ObjServiceManager.Bridge_GetStruct('com.sun.star.beans.PropertyValue');
+    SaveProperty[1].Name := 'Overwrite';
+    SaveProperty[1].Value := True;
+    objDocument.storeAsURL(aFileName, VarArrayOf(SaveProperty))
+  end
+  else
+    objDocument.storeAsURL(aFileName, VarArrayOf([]));
 end;
 
 end.
