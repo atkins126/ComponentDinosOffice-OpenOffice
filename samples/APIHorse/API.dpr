@@ -1,20 +1,21 @@
-program Project1;
+program API;
 
 {$APPTYPE CONSOLE}
 {$R *.res}
 
 uses
   System.SysUtils,
-  uOpenOfficeCollors,
+  Horse,
+  uOpenOffice_Calc,
   uOpenOfficeHelper,
-  uOpenOfficeSetPrinter,
-  uOpenOffice_calc;
+  uOpenOfficeCollors;
 
+procedure GetSheet(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 begin
+  var
+  OpenOffice_calc1 := TOpenOffice_calc.Create(nil);
   try
-    var
-    OpenOffice_calc1 := TOpenOffice_calc.Create(nil);
-    OpenOffice_calc1.DocVisible := true;
+    OpenOffice_calc1.DocVisible := false;
     OpenOffice_calc1.startSheet;
 
     OpenOffice_calc1.SetValue(1, 'A', 'STATUS').SetBorder([bAll], opBrown)
@@ -89,7 +90,8 @@ begin
     OpenOffice_calc1.positionSheetByName('Planilha1');
 
     // Configure the chart settings
-    var SettingsChart : TSettingsChart;
+    var
+      SettingsChart: TSettingsChart;
 
     SettingsChart.Height := 11000;
     SettingsChart.Width := 22000;
@@ -114,12 +116,20 @@ begin
     SettingsChart.typeChart := ctLine;
     OpenOffice_calc1.addChart(SettingsChart);
 
-    OpenOffice_calc1.saveFile(GetHomePath+ '\sheet.xls');
-    Writeln('File save in: '+ GetHomePath+ '\sheet.xls');
-    Writeln('Press any key to close program');
-    Readln;
+    OpenOffice_calc1.saveFile(GetHomePath + '\sheet.xls');
     OpenOffice_calc1.CloseFile;
+
+    Res.Send(OpenOffice_calc1.SheetToBase64(GetHomePath + '\sheet.xls'));
+  finally
     OpenOffice_calc1.Free;
+  end;
+
+end;
+
+begin
+  try
+    THorse.Get('/GetSheet', GetSheet);
+    THorse.Listen(9000);
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
