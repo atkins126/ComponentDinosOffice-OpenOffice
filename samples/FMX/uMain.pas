@@ -1,22 +1,37 @@
-program Console;
+unit uMain;
 
-{$APPTYPE CONSOLE}
-{$R *.res}
+interface
 
 uses
-  System.SysUtils,
-  uOpenOfficeCollors,
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, uOpenOfficeCollors,
   uOpenOfficeHelper,
   uOpenOfficeSetPrinter,
-  uOpenOffice_calc;
+  uOpenOffice_calc, uOpenOffice;
 
+type
+  TForm2 = class(TForm)
+    OpenOffice_calc1: TOpenOffice_calc;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
 
-begin
-  var
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.fmx}
+
+procedure TForm2.Button1Click(Sender: TObject);
+var
     OpenOffice_calc1 : TOpenOffice_calc;
-
-  OpenOffice_calc1 := TOpenOffice_calc.Create(nil);
-  try
+begin
+    OpenOffice_calc1:= TOpenOffice_calc.Create(nil);
     OpenOffice_calc1.DocVisible := true;
     OpenOffice_calc1.startSheet;
 
@@ -118,14 +133,8 @@ begin
     OpenOffice_calc1.addChart(SettingsChart);
 
     OpenOffice_calc1.saveFile(GetHomePath+ '\sheet.xlsx');
-    Writeln('File save in: '+ GetHomePath+ '\sheet.xlsx');
-    Writeln('Press any key to close program');
-    Readln;
     OpenOffice_calc1.CloseFile;
     OpenOffice_calc1.Free;
-  except
-    on E: Exception do
-      Writeln(E.ClassName, ': ', E.Message);
-  end;
+end;
 
 end.
