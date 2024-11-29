@@ -15,6 +15,9 @@
         <Projects Include="Unigui\prj\AppDinosOffice.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="FMX\FMX.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -59,14 +62,23 @@
     <Target Name="AppDinosOffice:Make">
         <MSBuild Projects="Unigui\prj\AppDinosOffice.dproj" Targets="Make"/>
     </Target>
+    <Target Name="FMX">
+        <MSBuild Projects="FMX\FMX.dproj"/>
+    </Target>
+    <Target Name="FMX:Clean">
+        <MSBuild Projects="FMX\FMX.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMX:Make">
+        <MSBuild Projects="FMX\FMX.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="API;Console;DemoDinoOpenOffice;AppDinosOffice"/>
+        <CallTarget Targets="API;Console;DemoDinoOpenOffice;AppDinosOffice;FMX"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="API:Clean;Console:Clean;DemoDinoOpenOffice:Clean;AppDinosOffice:Clean"/>
+        <CallTarget Targets="API:Clean;Console:Clean;DemoDinoOpenOffice:Clean;AppDinosOffice:Clean;FMX:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="API:Make;Console:Make;DemoDinoOpenOffice:Make;AppDinosOffice:Make"/>
+        <CallTarget Targets="API:Make;Console:Make;DemoDinoOpenOffice:Make;AppDinosOffice:Make;FMX:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
