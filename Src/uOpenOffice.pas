@@ -148,7 +148,11 @@ begin
     else
     begin
       // Para APIs multithread, Unigui, Intraweb, inicialize com COINIT_MULTITHREADED
-      OleCheck(CoInitializeEx(nil, COINIT_MULTITHREADED));
+      try
+        OleCheck(CoInitializeEx(nil, COINIT_MULTITHREADED));
+      except
+        OleCheck(CoInitialize(nil));
+      end;
     end;
   except
     on E: Exception do
