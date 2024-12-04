@@ -36,7 +36,8 @@ requires
   inet,
   dsnap,
   inetdb,
-  vclie;
+  vclie,
+  soaprtl;
 
 contains
   uOpenOffice in '..\Src\uOpenOffice.pas',
