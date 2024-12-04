@@ -31,6 +31,28 @@ uses
 type
 
   TTypeValue = (ftString, ftNumeric);
+  //0; //1234,2
+  //1; //1234
+  //3; //1.234
+  //4; //1.234,20
+  //10; //123420%
+  //11; //123420,00%
+  //20; //R$ 1.234
+  //21; //R$ 1.234,20
+  //24; // 1.234,20 BRL
+  //30; // DD/MM/YY
+  //31; // DDDD DD/MM/YY
+  //32; // MM/YY
+  //33; // DD/MMMM
+  //34; // MMMM
+  //35; // TRIMESTRE
+  //36; // DD/MM/YYYY
+  //39; // DD MMMM YY
+  //40; // DD MMMM YYYY
+  TNumberMask = (Default, NoDecimalSeparator, WithDecimalSeparator = 3, WithDecimalSeparatorAndComma, Percent = 10, PercentWithComma, CurrencySymbolWithoutDecimal = 20,
+                   CurrencySymbolWithDecimal, CurrencySuffix = 24, Date_dd_mm_yy = 30, Date_dddd_dd_mm_yyy,  Date_mm_yy, Date_dd_mmmm, Date_mmmm,
+                   Date_QUARTER, Date_Default, Date_dd_mmmm_yy = 39, Date_dd_mmmm_yyyy);
+
 
   TFieldsSheet = record
   private
@@ -56,6 +78,7 @@ type
     //--------------------//
     FFields: TFieldsSheet;
     FSheetName: string;
+    FNumberMask: TNumberMask;
 
     procedure SetSheetName(const Value: string);
   public
@@ -78,11 +101,10 @@ type
     property ServicesManager: OleVariant read objServiceManager;
     property Cell: OleVariant read objCell write objCell;
     property oSCalc: OleVariant read objSCalc write objSCalc;
-    property Table: OleVariant read objSCalc;
     property Fields: TFieldsSheet read FFields;
     property CoreReflection :OleVariant read objCoreReflection;
     property SheetName: string read FSheetName write SetSheetName;
-
+    property NumberMask: TNumberMask read FNumberMask write FNumberMask;
     //---------events-----------//
     property OnBeforeStartFile: TBeforeStartFile read FOnBeforeStartFile write FOnBeforeStartFile;
     property OnAfterStartFile : TAfterStartFile  read FOnAfterStartFile  write FOnAfterStartFile;
@@ -157,7 +179,10 @@ begin
     objCell.setString(aValue);
   end
   else
+  begin
+    objCell.NumberFormat := Integer(NumberMask);
     objCell.SetValue(aValue);
+  end;
 
   Result := self;
 
