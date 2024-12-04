@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{661BCE98-9C56-4B84-A459-12BC3B179D92}</ProjectGuid>
         <MainSource>OpenOfficeComponent_install.dpk</MainSource>
-        <ProjectVersion>19.5</ProjectVersion>
+        <ProjectVersion>20.1</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -60,7 +60,7 @@
         <DCC_K>false</DCC_K>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UsePackage>xmlrtl;rtl;vcl;dbrtl;inet;dsnap;inetdb;vclie;vcledge;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>xmlrtl;rtl;vcl;dbrtl;inet;dsnap;inetdb;vclie;vcledge;soaprtl;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
@@ -68,7 +68,7 @@
         <DCC_DcpOutput>.\DCU\</DCC_DcpOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <DCC_UsePackage>xmlrtl;rtl;vcl;dbrtl;inet;dsnap;inetdb;vclie;vcledge;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>xmlrtl;rtl;vcl;dbrtl;inet;dsnap;inetdb;vclie;vcledge;soaprtl;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -107,6 +107,7 @@
         <DCCReference Include="dsnap.dcp"/>
         <DCCReference Include="inetdb.dcp"/>
         <DCCReference Include="vclie.dcp"/>
+        <DCCReference Include="soaprtl.dcp"/>
         <DCCReference Include="..\Src\uOpenOffice.pas"/>
         <DCCReference Include="..\Src\uOpenOffice_calc.pas"/>
         <DCCReference Include="..\Src\uOpenOffice_writer.pas"/>
