@@ -291,10 +291,9 @@ var
   map: string;
 begin
   map := aCollName + aCellNumber.ToString;
-  objCell := objSCalc.getCellByPosition(Fields.getIndex(aCollName),
-    aCellNumber);
-  objCell.Formula := (aFormula);
-
+  objCell := objSCalc.getCellByPosition(Fields.getIndex(aCollName), aCellNumber);
+  //objCell.Formula := aFormula;
+  objCell.FormulaLocal  := aFormula;
   Result := self;
 end;
 
@@ -316,7 +315,6 @@ begin
     objSCalc := objDocument.createInstance('com.sun.star.sheet.Spreadsheet');
     objDocument.Sheets.insertByName(SheetName, objSCalc);
   end;
-
 
   if Assigned( FOnAfterStartFile) then
      FOnAfterStartFile(self);
