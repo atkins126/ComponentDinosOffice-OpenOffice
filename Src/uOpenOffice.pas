@@ -118,7 +118,7 @@ end;
 
 function TOpenOffice.convertFilePathToUrlFile(aFilePath: string): string;
 begin
-  if (pos('FILE', UpperCase(aFilePath)) <= 0) then
+  if (pos('FILE:///', UpperCase(aFilePath)) <= 0) then
   begin
     aFilePath := StringReplace(aFilePath, '\', '/', [rfReplaceAll]);
     aFilePath := 'file:///' + aFilePath;
@@ -138,8 +138,30 @@ begin
 end;
 
 constructor TOpenOffice.Create(AOwner: TComponent);
+procedure InitializeCOM;
+begin
+  try
+    if TThread.CurrentThread.ThreadID = MainThreadID then
+    begin
+      OleCheck(CoInitialize(nil));
+    end
+    else
+    begin
+      // Para APIs multithread, Unigui, Intraweb, inicialize com COINIT_MULTITHREADED
+      try
+        OleCheck(CoInitializeEx(nil, COINIT_MULTITHREADED));
+      except
+        OleCheck(CoInitialize(nil));
+      end;
+    end;
+  except
+    on E: Exception do
+      raise Exception.Create('Erro ao inicializar COM: ' + E.Message);
+  end;
+end;
 begin
   inherited;
+  InitializeCOM;
   FOpenOfficeHungThread := TOpenOfficeHungThread.Create;
   inicialization;
   FSetPrinter := TSetPrinter.Create(nil);
@@ -255,13 +277,25 @@ begin
 end;
 
 procedure TOpenOffice.saveFile(aFileName: String);
+var
+  SaveProperty : array [0..1] of variant;
 begin
   aFileName := convertFilePathToUrlFile(aFileName);
 
-  if aFileName.Trim.IsEmpty then
-    aFileName := URlFile;
+  if aFileName.Contains('.xlsx') then
+  begin
+    //Codigo fornecido por @adolfomayer - e adptado por @dinosdev 29/11/2024
+    SaveProperty[0] := ObjServiceManager.Bridge_GetStruct('com.sun.star.beans.PropertyValue');
+    SaveProperty[0].Name := 'FilterName';
+    SaveProperty[0].Value := 'Calc MS Excel 2007 XML'; //for XLSX
 
-  objDocument.storeAsURL(aFileName, VarArrayOf([]));
+    SaveProperty[1] := ObjServiceManager.Bridge_GetStruct('com.sun.star.beans.PropertyValue');
+    SaveProperty[1].Name := 'Overwrite';
+    SaveProperty[1].Value := True;
+    objDocument.storeAsURL(aFileName, VarArrayOf(SaveProperty))
+  end
+  else
+    objDocument.storeAsURL(aFileName, VarArrayOf([]));
 end;
 
 end.

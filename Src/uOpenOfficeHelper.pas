@@ -82,9 +82,13 @@ type
     function SetUnderline(aUnderline: boolean): TOpenOffice_calc;
     function CountRow: Integer;
     function CountCell: Integer;
+    function SheetToBase64(aPathFile:string):string;
   end;
 
 implementation
+
+uses
+  System.Win.ComObj, System.Classes, Soap.EncdDecd;
 
 procedure THelperOpenOffice_calc.addChart(aSettingsChart: TSettingsChart);
 var
@@ -154,7 +158,9 @@ function THelperOpenOffice_calc.changeFont(aNameFont: string; aHeight: Integer)
   : TOpenOffice_calc;
 begin
   // Cell := Table.getCellRangeByName(aCollName+aCellNumber.ToString);
-  Cell.CharFontName := aNameFont;
+  if not aNameFont.Trim.IsEmpty then
+    Cell.CharFontName := aNameFont;
+
   Cell.CharHeight := inttostr(aHeight);
   result := self;
 end;
@@ -321,11 +327,9 @@ end;
 
 function THelperOpenOffice_calc.seTBorder(borderPosition: TBoderSheet; opColor: TOpenColor; RemoveBorder: boolean): TOpenOffice_calc;
 var
-  border: Variant;
   settings: Variant;
 begin
-  border := ServicesManager.createInstance('com.sun.star.reflection.CoreReflection');
-  border.forName('com.sun.star.table.BorderLine2').createObject(settings);
+ CoreReflection.forName('com.sun.star.table.BorderLine2').createObject(settings);
 
  if not RemoveBorder then
   begin
@@ -389,6 +393,19 @@ function THelperOpenOffice_calc.SetUnderline(aUnderline: boolean): TOpenOffice_c
 begin
   Cell.CharUnderline := ifthen(aUnderline, 1, 0);
   result := self;
+end;
+
+function THelperOpenOffice_calc.SheetToBase64(aPathFile:string): string;
+var
+  stream: TMemoryStream;
+begin
+  stream := TMemoryStream.Create;
+  try
+    stream.LoadFromFile(aPathFile);
+    Result := EncodeBase64(stream.Memory, stream.Size);
+  finally
+    stream.Free;
+  end;
 end;
 
 { THelperOpenOffice_calc }

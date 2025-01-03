@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7EAED8DC-4FCE-44CA-95B7-8D25C6C73581}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="APIHorse\API.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ConsoleApplication\prj\Console.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="samplesWithPackage\src\DemoDinoOpenOffice.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Unigui\prj\AppDinosOffice.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FMX\FMX.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="API">
+        <MSBuild Projects="APIHorse\API.dproj"/>
+    </Target>
+    <Target Name="API:Clean">
+        <MSBuild Projects="APIHorse\API.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="API:Make">
+        <MSBuild Projects="APIHorse\API.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Console">
+        <MSBuild Projects="ConsoleApplication\prj\Console.dproj"/>
+    </Target>
+    <Target Name="Console:Clean">
+        <MSBuild Projects="ConsoleApplication\prj\Console.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Console:Make">
+        <MSBuild Projects="ConsoleApplication\prj\Console.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DemoDinoOpenOffice">
+        <MSBuild Projects="samplesWithPackage\src\DemoDinoOpenOffice.dproj"/>
+    </Target>
+    <Target Name="DemoDinoOpenOffice:Clean">
+        <MSBuild Projects="samplesWithPackage\src\DemoDinoOpenOffice.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DemoDinoOpenOffice:Make">
+        <MSBuild Projects="samplesWithPackage\src\DemoDinoOpenOffice.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AppDinosOffice">
+        <MSBuild Projects="Unigui\prj\AppDinosOffice.dproj"/>
+    </Target>
+    <Target Name="AppDinosOffice:Clean">
+        <MSBuild Projects="Unigui\prj\AppDinosOffice.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AppDinosOffice:Make">
+        <MSBuild Projects="Unigui\prj\AppDinosOffice.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FMX">
+        <MSBuild Projects="FMX\FMX.dproj"/>
+    </Target>
+    <Target Name="FMX:Clean">
+        <MSBuild Projects="FMX\FMX.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMX:Make">
+        <MSBuild Projects="FMX\FMX.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="API;Console;DemoDinoOpenOffice;AppDinosOffice;FMX"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="API:Clean;Console:Clean;DemoDinoOpenOffice:Clean;AppDinosOffice:Clean;FMX:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="API:Make;Console:Make;DemoDinoOpenOffice:Make;AppDinosOffice:Make;FMX:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
